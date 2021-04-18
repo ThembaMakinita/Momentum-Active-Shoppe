@@ -23,8 +23,9 @@ public class Customer implements Serializable {
     @Column(name = "Name", length = 50)
     private String name;
 
-    @Column(name = "ID_Number", length = 50)
-    private String idNumber;
+    @Column(name = "Active_Points")
+    private long activePoints;
+
 
     @Override
     public String toString() {

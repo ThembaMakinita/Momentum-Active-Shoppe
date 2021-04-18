@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -29,6 +30,20 @@ public class CustomerService {
             return customerList;
         }catch (Exception exception) {
             logger.error("getAllCustomers: Failed to get the list of Products. ",exception);
+            return null;
+        }
+
+    }
+
+    @Transactional
+    public Optional<Customer> getCustomers(long userid){
+        try {
+            logger.info("getCustomers: Retrieving registered Customer by ID.");
+            Optional<Customer> customer = customerRepository.findById(userid);
+            logger.info("getCustomers: Registered User  = "+ customer.toString());
+            return customer;
+        }catch (Exception exception) {
+            logger.error("getCustomers: Failed to get the specified Customer ",exception);
             return null;
         }
 

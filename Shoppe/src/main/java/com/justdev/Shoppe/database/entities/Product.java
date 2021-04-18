@@ -23,7 +23,7 @@ public class Product implements Serializable {
     @Column(name = "Name", length = 50)
     private String name;
     @Column(name ="Point_Price")
-    private double pointPrice;
+    private int pointPrice;
 
     /*@Transient
     @ManyToMany(mappedBy = "Ordered_Products")

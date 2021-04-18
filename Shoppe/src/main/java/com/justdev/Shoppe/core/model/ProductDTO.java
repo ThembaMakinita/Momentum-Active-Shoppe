@@ -15,6 +15,6 @@ public class ProductDTO {
     private long productId;
     private String productCode;
     private String name;
-    private double pointPrice;
+    private int pointPrice;
 
 }

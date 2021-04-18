@@ -13,6 +13,6 @@ public class CustomerDTO {
 
     private long customerId;
     private String name;
-    private String idNumber;
+    private long activePoints;
 
 }
