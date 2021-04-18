@@ -1,6 +1,8 @@
 package com.justdev.Shoppe.database.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,21 +10,29 @@ import java.io.Serializable;
 @Entity
 @Table(name = "Product")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CustomerId")
-    private long customerId;
-    @Column(name = "Code")
+    @Column(name = "ProductId")
+    private long productId;
+    @Column(name = "Code" ,length = 50)
     private String productCode;
     @Column(name = "Name", length = 50)
     private String name;
+    @Column(name ="Point_Price")
+    private double pointPrice;
+
+    /*@Transient
+    @ManyToMany(mappedBy = "Ordered_Products")
+    private List<Orders> orders;*/
 
     @Override
     public String toString() {
-        return "Product{" +
-                "Customer Id=" + customerId +
+        return "Product Entity {" +
+                "product Id=" + productId +
                 ", Product Code='" + productCode + '\'' +
                 ", Product Name='" + name + '\'' +
                 '}';
