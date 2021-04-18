@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/shop")
@@ -45,8 +46,13 @@ public class TransactionController {
             }
     }
 
-    @GetMapping("/viewAllAvailableProducts/{UserID}")
-    public ResponseEntity getAllCustomers(@PathVariable(value = "UserID")int UserID){
+    @GetMapping("/viewAllAvailableProducts/{userID}")
+    public ResponseEntity getAllCustomers(@PathVariable(value = "userID")int userID){
+        Optional<Customer> customer = costomersService.getCustomers(userID);
+        System.out.println(customer.toString());
+        if(customer == null)
+            return new ResponseEntity<>("Exception Occurred: Unable to find the customer with ID : " + userID, HttpStatus.BAD_REQUEST);
+
         List<Product> productList = productService.getAllProducts();
         if(productList == null)
             return new ResponseEntity<>("Exception Occurred: Unable to find the list of Products", HttpStatus.BAD_REQUEST);
