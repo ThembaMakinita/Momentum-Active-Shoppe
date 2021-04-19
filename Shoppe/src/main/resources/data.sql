@@ -5,3 +5,6 @@
 	insert into Product values (4,'iPhone 7',550,'IPH50');
 	insert into Product values (5,'LG smart TV',900,'LG90');
 
+    insert into Customer values(1,10000,'Paul');
+    insert into Customer values(2,200000,'John');
+
