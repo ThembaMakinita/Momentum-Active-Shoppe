@@ -30,15 +30,12 @@ public class Orders implements Serializable {
             inverseJoinColumns = @JoinColumn(name="productId"))
     private List<Product> products;
 
-    private int quantity;
-
     @Override
     public String toString() {
-        return "Orders Entity{" +
-                "Order Id = " + orderId +
-                ", Customer Id = " + customerId +
-                ", Products = " + products +
-                ", Quantity = " + quantity +
+        return "Orders{" +
+                "orderId=" + orderId +
+                ", customerId=" + customerId +
+                ", products=" + products +
                 '}';
     }
 }

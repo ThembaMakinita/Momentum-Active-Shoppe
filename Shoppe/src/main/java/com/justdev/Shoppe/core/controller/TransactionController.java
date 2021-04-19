@@ -2,12 +2,17 @@ package com.justdev.Shoppe.core.controller;
 
 import com.justdev.Shoppe.commons.converters.BeanConverter;
 import com.justdev.Shoppe.core.model.CustomerDTO;
+import com.justdev.Shoppe.core.model.OrderDTO;
+import com.justdev.Shoppe.core.model.OrderRequestDto;
 import com.justdev.Shoppe.core.model.ProductDTO;
 import com.justdev.Shoppe.core.services.CustomerService;
 import com.justdev.Shoppe.core.services.OrderService;
 import com.justdev.Shoppe.core.services.ProductService;
 import com.justdev.Shoppe.database.entities.Customer;
+import com.justdev.Shoppe.database.entities.Orders;
 import com.justdev.Shoppe.database.entities.Product;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +24,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/shop")
 public class TransactionController {
+
+    private Logger logger = LogManager.getLogger(TransactionController.class);
 
     @Autowired
     private CustomerService costomersService;
@@ -64,4 +71,19 @@ public class TransactionController {
             return new ResponseEntity<>("No Results Found For Product List", HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @PostMapping("/placeOrder")
+    public ResponseEntity createOrder (@RequestBody OrderRequestDto orderRequestDTO) {
+
+        Optional<Customer> customer = costomersService.getCustomers(orderRequestDTO.getCustomerId());
+        System.out.println(customer.toString());
+        if(!customer.isPresent())
+            return new ResponseEntity<>("Exception Occurred: Unable to find the customer with ID : " + orderRequestDTO.getCustomerId(), HttpStatus.BAD_REQUEST);
+
+        Optional<Orders> order = Optional.ofNullable(orderService.createOrder(orderRequestDTO));
+        return new ResponseEntity<>(order, HttpStatus.OK);
+
+    }
+
 }

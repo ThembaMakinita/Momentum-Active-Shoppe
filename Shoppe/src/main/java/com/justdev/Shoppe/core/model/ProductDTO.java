@@ -16,5 +16,6 @@ public class ProductDTO {
     private String productCode;
     private String name;
     private int pointPrice;
+    private int quantity;
 
 }

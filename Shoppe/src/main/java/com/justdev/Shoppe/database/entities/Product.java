@@ -25,16 +25,7 @@ public class Product implements Serializable {
     @Column(name ="Point_Price")
     private int pointPrice;
 
-    /*@Transient
-    @ManyToMany(mappedBy = "Ordered_Products")
-    private List<Orders> orders;*/
 
-    @Override
-    public String toString() {
-        return "Product Entity {" +
-                "product Id=" + productId +
-                ", Product Code='" + productCode + '\'' +
-                ", Product Name='" + name + '\'' +
-                '}';
-    }
+
+
 }

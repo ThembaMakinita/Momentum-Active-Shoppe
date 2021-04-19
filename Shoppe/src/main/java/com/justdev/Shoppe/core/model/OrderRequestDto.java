@@ -12,9 +12,8 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderRequestDto {
 
-    private long OrderId;
     private long customerId;
     private List<Product> products;
 
