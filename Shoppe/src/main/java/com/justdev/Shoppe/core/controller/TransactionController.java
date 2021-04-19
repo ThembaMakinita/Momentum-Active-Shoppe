@@ -76,13 +76,32 @@ public class TransactionController {
     @PostMapping("/placeOrder")
     public ResponseEntity createOrder (@RequestBody OrderRequestDto orderRequestDTO) {
 
+        int totalCost = 0;
         Optional<Customer> customer = costomersService.getCustomers(orderRequestDTO.getCustomerId());
         System.out.println(customer.toString());
         if(!customer.isPresent())
             return new ResponseEntity<>("Exception Occurred: Unable to find the customer with ID : " + orderRequestDTO.getCustomerId(), HttpStatus.BAD_REQUEST);
 
-        Optional<Orders> order = Optional.ofNullable(orderService.createOrder(orderRequestDTO));
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        if(orderRequestDTO.getProducts().size()>0){
+            for(Product product: orderRequestDTO.getProducts()){
+                Optional<Product> dbProduct = productService.getProduct(product.getProductId());
+                if(!dbProduct.isPresent()){
+                    return new ResponseEntity<>("Exception Occurred: Unable to find the Product with productID of : " + product.getProductId(), HttpStatus.BAD_REQUEST);
+                }
+                else {
+                    totalCost = +product.getPointPrice();
+                }
+            }
+        }
+        if(customer.get().getActivePoints() < totalCost ){
+            return new ResponseEntity<>("Exception Occurred: Customer Doesnt have enough points to purchase products " , HttpStatus.BAD_REQUEST);
+        }
+        else {
+            customer.get().setActivePoints(customer.get().getActivePoints() - totalCost);
+            costomersService.updateCustomer(customer.get());
+            Optional<Orders> order = Optional.ofNullable(orderService.createOrder(orderRequestDTO));
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        }
 
     }
 

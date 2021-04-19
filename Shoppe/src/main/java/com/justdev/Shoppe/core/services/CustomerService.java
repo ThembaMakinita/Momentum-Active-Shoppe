@@ -46,4 +46,15 @@ public class CustomerService {
         }
 
     }
+
+    public void updateCustomer(Customer customer){
+        try {
+            logger.info("updateCustomer: Updating customer details.");
+            customerRepository.save(customer);
+            logger.info("updateCustomer: Update Successful!");
+
+        }catch (Exception exception) {
+            logger.error("updateCustomer: Failed to Update Customer ",exception);
+        }
+    }
 }
