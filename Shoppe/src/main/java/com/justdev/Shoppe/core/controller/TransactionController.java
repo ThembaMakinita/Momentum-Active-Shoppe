@@ -50,7 +50,7 @@ public class TransactionController {
     public ResponseEntity getAllCustomers(@PathVariable(value = "userID")int userID){
         Optional<Customer> customer = costomersService.getCustomers(userID);
         System.out.println(customer.toString());
-        if(customer == null)
+        if(!customer.isPresent())
             return new ResponseEntity<>("Exception Occurred: Unable to find the customer with ID : " + userID, HttpStatus.BAD_REQUEST);
 
         List<Product> productList = productService.getAllProducts();

@@ -1,9 +1,7 @@
 package com.justdev.Shoppe.core.services;
 
 import com.justdev.Shoppe.database.entities.Customer;
-import com.justdev.Shoppe.database.entities.Product;
 import com.justdev.Shoppe.database.repositories.CustomerRepository;
-import com.justdev.Shoppe.database.repositories.ProductRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
